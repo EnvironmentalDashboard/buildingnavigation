@@ -13,7 +13,7 @@ require '../includes/class.TimeSeries.php';
   <link rel="stylesheet" href="css/bootstrap.grid.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-  <link rel="stylesheet" href="buildingosnavigation/buildosnavstyle.css">
+  <link rel="stylesheet" href="buildosnavstyle.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <title>Building Navigation</title>
