@@ -9,7 +9,7 @@ require '../../includes/db.php';
   <meta charset="UTF-8">
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/bootstrap.grid.css">
+  
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
   <link rel="stylesheet" href="buildnavstyle.css">
@@ -366,7 +366,7 @@ require '../../includes/db.php';
 
     $('.show-timeseries').on('click', function() {
       var meter_id = $(this).data('meterid');
-      $('#object').attr('data', 'index.php?meter_id='+meter_id+'&meter_id2=' + meter_id).css('display', 'initial');
+      $('#object').attr('data', 'https://environmentaldashboard.org/chart/?meter_id0='+meter_id).css('display', 'initial');
       $('#close-timeseries').css('display', 'initial');
       $('#bg').css('display', 'block');
     });
