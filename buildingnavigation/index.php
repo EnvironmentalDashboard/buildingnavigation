@@ -298,7 +298,7 @@ require '../../includes/db.php';
     </div>
   </div>
   <div id="bg" style="display: none;height: 100%;width: 100%;position: absolute;top: 0;left: 50px;right: 0;bottom: 0;padding: 20px 20px 20px 20px"></div>
-  <iframe id="object" type="image/svg+xml" data=""></iframe>
+  <iframe id="object" type="image/svg+xml" src=""></iframe>
   <img src="../images/close.svg" alt="" height="75px" width="75px" id="close-timeseries" style="display: none;cursor: pointer;position: fixed;top: 7px;right: 20px;">
   <script
   src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -366,7 +366,7 @@ require '../../includes/db.php';
 
     $('.show-timeseries').on('click', function() {
       var meter_id = $(this).data('meterid');
-      $('#object').attr('data', 'https://environmentaldashboard.org/chart/?meter0='+meter_id).css('display', 'initial');
+      $('#object').attr('src', 'https://environmentaldashboard.org/chart/?meter0='+meter_id).css('display', 'initial');
       $('#close-timeseries').css('display', 'initial');
       $('#bg').css('display', 'block');
     });
