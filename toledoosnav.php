@@ -1,8 +1,7 @@
 <?php
 error_reporting(-1);
 ini_set('display_errors', 'On');
-require '../includes/db.php';
-require '../includes/class.TimeSeries.php';
+require '/var/www/repos/includes/db.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
