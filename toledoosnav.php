@@ -1,8 +1,7 @@
 <?php
 error_reporting(-1);
 ini_set('display_errors', 'On');
-require '../../includes/db.php';
-require '../../includes/class.TimeSeries.php';
+require '/var/www/repos/includes/db.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,99 +12,50 @@ require '../../includes/class.TimeSeries.php';
   <link rel="stylesheet" href="css/bootstrap.grid.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-  <link rel="stylesheet" href="buildingnavigation/buildnavstyle.css">
+  <link rel="stylesheet" href="toledoosnavstyle.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <title>Building Navigation</title>
 </head>
+
 <body>
   <!--WEBSITE CONTAINER-->
   <div class="container">
-      <div class="col-sm-3"></div>
+    <!--<div class="row">-->
+      <div class="col-sm-3">
+        <!--EMPTY-->
+      </div>
       <div class="col-sm-12 col-sm-pull-0">
-      <div class="row-fluid">
-    <?php
-    $orderBy = NULL;
-    $use = NULL;
-    if (isset($_GET['orderBy']) && isset($_GET['use'])){
-        $orderBy = $_GET['orderBy'];
-        $use = $_GET['use'];
-    }
-    if($orderBy == 'elec' && $use == 'current'){
-      $sql = "SELECT DISTINCT users_orgs_map.user_id, buildings.user_id, buildings.name, buildings.id, buildings.area, buildings.building_type, buildings.custom_img, meters.current, meters.building_id, meters.for_orb, meters.timeseries_using, meters.bos_uuid, meters.scope, meters.units FROM users_orgs_map 
-      INNER JOIN buildings ON buildings.org_id=users_orgs_map.org_id AND buildings.user_id=users_orgs_map.user_id
-      INNER JOIN meters ON buildings.id=meters.building_id 
-      WHERE buildings.user_id = {$user_id}
-      AND buildings.custom_img IS NOT NULL AND meters.scope = 'Whole building' AND meters.units = 'Kilowatts' AND buildings.area != 0 AND (meters.for_orb > 0 OR meters.timeseries_using > 0 
-      OR meters.bos_uuid IS NOT NULL) ORDER BY current DESC";
-      $title = "Current Electricity";
-    }
-    else if ($orderBy == 'water' && $use == 'current'){
-      $sql = "SELECT DISTINCT users_orgs_map.user_id, buildings.user_id, buildings.name, buildings.id, buildings.area, buildings.building_type, buildings.custom_img, meters.current, meters.building_id, meters.for_orb, meters.timeseries_using, meters.bos_uuid, meters.scope, meters.units FROM users_orgs_map 
-      INNER JOIN buildings ON buildings.org_id=users_orgs_map.org_id AND buildings.user_id=users_orgs_map.user_id
-      INNER JOIN meters ON buildings.id=meters.building_id
-      WHERE buildings.user_id = {$user_id}
-      AND buildings.custom_img IS NOT NULL AND meters.scope = 'Whole building' AND meters.units = 'Gallons / hour' AND buildings.area != 0 AND (meters.for_orb > 0 OR meters.timeseries_using > 0 
-      OR meters.bos_uuid IS NOT NULL) ORDER BY current DESC";
-      $title = "Current Water";
-    }
-    else if ($orderBy == 'elec' && $use == 'relative'){
-      $sql = "SELECT DISTINCT users_orgs_map.user_id, buildings.user_id, buildings.name, buildings.id, buildings.area, buildings.building_type, buildings.custom_img, meters.current, meters.building_id, meters.for_orb, meters.timeseries_using, meters.bos_uuid, meters.scope, meters.units, relative_values.relative_value FROM users_orgs_map 
-      INNER JOIN buildings ON buildings.org_id=users_orgs_map.org_id AND buildings.user_id=users_orgs_map.user_id
-      INNER JOIN meters ON buildings.id=meters.building_id
-      INNER JOIN relative_values ON meters.bos_uuid=relative_values.meter_uuid
-      WHERE buildings.user_id = {$user_id}
-      AND buildings.custom_img IS NOT NULL AND meters.scope = 'Whole building' AND meters.units = 'Kilowatts' AND buildings.area != 0 AND (meters.for_orb > 0 OR meters.timeseries_using > 0 
-      OR meters.bos_uuid IS NOT NULL) 
-      ORDER BY relative_value DESC";
-      $title = "Relative Electricity";
-    }
-    else if ($orderBy == 'water' && $use == 'relative'){
-      $sql = "SELECT DISTINCT users_orgs_map.user_id, buildings.user_id, buildings.name, buildings.id, buildings.area, buildings.building_type, buildings.custom_img, meters.current, meters.building_id, meters.for_orb, meters.timeseries_using, meters.bos_uuid, meters.scope, meters.units, relative_values.relative_value FROM users_orgs_map 
-      INNER JOIN buildings ON buildings.org_id=users_orgs_map.org_id AND buildings.user_id=users_orgs_map.user_id
-      INNER JOIN meters ON buildings.id=meters.building_id
-      INNER JOIN relative_values ON meters.bos_uuid=relative_values.meter_uuid
-      WHERE buildings.user_id = {$user_id}
-      AND buildings.custom_img IS NOT NULL AND meters.scope = 'Whole building' AND meters.units = 'Gallons / hour' AND buildings.area != 0 AND (meters.for_orb > 0 OR meters.timeseries_using > 0 
-      OR meters.bos_uuid IS NOT NULL) 
-      ORDER BY relative_value DESC";
-      $title = "Relative Water";
-    }
-    else {
-      $sql = "SELECT id, name, area, building_type, custom_img FROM buildings WHERE org_id IN (SELECT org_id from users_orgs_map WHERE user_id = {$user_id})
-      AND custom_img IS NOT NULL AND id IN (SELECT building_id FROM meters WHERE for_orb > 0 OR timeseries_using > 0 
-      OR bos_uuid IS NOT NULL) AND area != 0 ORDER BY name ASC";
-      $title = "Alphabetical";
-    }
-//AND custom_img IS NOT NULL 
-//AND area != 0 
+      <h1 style="font-size: 30px; margin-top: 0px; margin-bottom: 10px"> Select a building to find out more information </h1>
+        <div class="row">
+        <?php
+             $sql = "SELECT id, name, db_link, building_type, area, custom_img FROM buildings WHERE org_id IN (SELECT org_id from users_orgs_map WHERE user_id = {$user_id}) AND custom_img IS NOT NULL AND id IN (SELECT building_id FROM meters WHERE for_orb > 0 OR timeseries_using > 0 OR bos_uuid IS NOT NULL) AND area != 0 LIMIT 6";
         foreach($db->query($sql) as $building)  {
           $stmt = $db->prepare('SELECT id, scope, current, name, for_orb, bos_uuid, units, resource FROM meters WHERE building_id = ? ORDER BY name ASC');
           $stmt->execute(array($building['id']));
           $meters = $stmt->fetchAll();
         ?>
-        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 col-xxs-2 card-col" data-title="<?php echo $building['name'] ?>" data-buildingtype="<?php echo $building['building_type'] ?>" data-consumption="<?php echo $meters[0]['current']?>">
-            <div class="card" data-side1="side1<?php echo $building['id'] ?>" data-side2="side2<?php echo $building['id'] ?>">
+        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 card-col" data-title="<?php echo $building['name'] ?>" data-buildingtype="<?php echo $building['building_type'] ?>" data-consumption="<?php echo $meters[0]['current']?>">
+            <a class="card-hilight" href="<?php echo $building['db_link'] ?>" target="_top">
+            <div class="card">
               <div class="side1" id="side1<?php echo $building['id']; ?>">
                 <img src="<?php echo $building['custom_img'] ?>" alt="<?php echo $building['name'] ?>" align="middle">
                 <div class="card-text">
-                  <h1><?php echo $building['name'] ?></h1>
+                    <h1><?php echo $building['name'] ?></h1>
                   <h2 class="text-muted"><?php echo $building['building_type'] ?></h2>
-                  <p class="meter-num">
-                      <?php 
-                      $count = 0;
-                      foreach ($meters as $meter){
-                        if ($meter['scope'] == "Whole building" || $meter['current'] != NULL){
-                          $count++;
-                        }
-                      }
-                      if ($count != 1){echo $count; echo " meters";} else{echo $count; echo " meter";} ?>
-                  </p>
+                  <div class="meter-num"><p> 
+                  <?php 
+                  $count = 0;
+                  foreach ($meters as $meter){
+                      $count++;
+                  }
+                  if ($count != 1){echo $count; echo " meters";} else{echo $count; echo " meter";} ?></p>
+                </div>
                   <div class="relval">
                   <?php
                     foreach ($meters as $meter) {
                       if ($meter['scope'] == "Whole building"){
-                        $stmt = $db->prepare('SELECT relative_value, last_updated FROM relative_values WHERE (meter_uuid = ?) LIMIT 1');
+                        $stmt = $db->prepare('SELECT relative_value FROM relative_values WHERE (meter_uuid = ?) LIMIT 1');
                         $stmt->execute(array($meter['bos_uuid']));
                         if ($meter['resource'] == "Generation, Photovoltaic"){
                           $pvrelval = $stmt->fetchColumn();
@@ -130,12 +80,8 @@ require '../../includes/class.TimeSeries.php';
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
                         }
-                        else if ($meter['units'] == "Kilowatts"){
+                        if ($meter['units'] == "Kilowatts"){
                           $elecrelval = $stmt->fetchColumn();
-                          $lastupdate = $stmt->fetchColumn(1);
-                          if ($lastupdate != 0){
-                            echo "<span class='warning-bubble'>~</span>";
-                          }
                           if ($elecrelval <= 20){
                             echo "<img src='images/nav_images/electricity1.svg' 
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
@@ -159,10 +105,6 @@ require '../../includes/class.TimeSeries.php';
                         }
                         else if ($meter['units'] == "Gallons / hour"){
                           $waterrelval = $stmt->fetchColumn();
-                          $lastupdate = $stmt->fetchColumn(1);
-                           if ($lastupdate != 0){
-                            echo "<span class='warning-bubble'>~</span>";
-                          }
                           if ($waterrelval <= 20){
                             echo "<img src='images/nav_images/water1.svg'  
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
@@ -188,68 +130,48 @@ require '../../includes/class.TimeSeries.php';
                     } 
                   ?>
                   </div>
-                </div>
               </div>
-              <div class="side2 hidden" id="side2<?php echo $building['id']; ?>">
-                <img src="images/close.svg" data-side1="side1<?php echo $building['id'] ?>" data-side2="side2<?php echo $building['id'] ?>" 
-                class="close-meters" style="height: 20px; width: 20px; cursor: pointer;position: absolute;top: 3px;right: 7px;">                <h1>Main Meters</h1>
-                <?php
-                  foreach ($meters as $meter) {
-                    if ($meter['scope'] == "Whole building"){
-                      echo "<a href='#' style='font-size: 13px;'data-meterid='{$meter['id']}' class='show-timeseries'>{$meter['name']}</a>"; 
-                      echo "<div class='line-separator'></div>";
-                    }
-                  } ?>
-                <br>
-                <h1>Other Meters</h1>
-                <?php
-                  foreach ($meters as $meter) {
-                    if ($meter['scope'] != "Whole building" && $meter['current'] != NULL){
-                      echo "<a href='#' style='font-size: 13px;'data-meterid='{$meter['id']}' class='show-timeseries'>{$meter['name']}</a>"; 
-                      echo "<div class='line-separator'></div>";
-                    }
-                  } ?>
               </div>
             </div>
+            </a>
         </div>
         <?php } ?>
         </div>
       </div>
+    <!--</div>-->
   </div>
   <div class="navbar">
-      <input type="text" id="search" placeholder="Search">
-      <!--FILTERING BUTTONS-->
-      <div class="btn-group">
-        <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Building Type:  <span id="buildingname"></span>
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <li onClick="window.location.reload()">All</li>
-                <?php 
-                foreach($db->query("SELECT DISTINCT building_type FROM buildings WHERE org_id IN (SELECT org_id from users_orgs_map WHERE user_id = {$user_id}) AND custom_img IS NOT NULL AND id IN (SELECT building_id FROM meters WHERE gauges_using > 0 
-                  OR for_orb > 0 OR timeseries_using > 0 OR bos_uuid IS NOT NULL)
-                ORDER BY building_type ASC") as $building) { ?> 
-                <li class="filter-btn" data-buildingtype="<?php echo $building['building_type']; ?>"><?php echo $building['building_type']; ?></li>
-            <?php } ?>
-          </ul>
-        </div>
-        <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort By: <?php echo $title?>
-          <span class="caret"></span></button>
-          <ul class="dropdown-menu">
-              <li onClick="location.href='https://oberlindashboard.org/oberlin/time-series/buildingnavigation.php';">Alphabetical</li>
-              <li class="header">Current Use</li>
-            <!-- href, put the query string in there-->
-              <li> <a href='?orderBy=elec&use=current'>Electricity</a></li>
-              <li> <a href='?orderBy=water&use=current'>Water</a></li>
+    <input type="text" id="search" placeholder="Search">
+    <!--FILTERING BUTTONS-->
+    <div class="btn-group">
+      <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Building Type
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li onClick="window.location.reload()">All</li>
+           <?php 
+            foreach($db->query("SELECT DISTINCT building_type FROM buildings WHERE org_id IN (SELECT org_id from users_orgs_map WHERE user_id = {$user_id}) AND custom_img IS NOT NULL AND id IN (SELECT building_id FROM meters WHERE gauges_using > 0 OR for_orb > 0 OR timeseries_using > 0 OR bos_uuid IS NOT NULL)
+            ORDER BY building_type ASC") as $building) { ?>
+            <li class="filter-btn" data-buildingtype="<?php echo $building['building_type']; ?>"><?php echo $building['building_type']; ?></li>
+          <?php } ?>
+        </ul>
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort By: Alphabetical
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+<!--               <li onClick="window.location.reload()">Alphabetical</li>
+ -->              <li class="header">Current Use</li>
+              <li onClick="location.href='https://oberlindashboard.org/oberlin/time-series/buildingosnavigation/currentelecfilteros.php';">Electricity</li>
+              <li onClick="location.href='https://oberlindashboard.org/oberlin/time-series/buildingosnavigation/currentwaterfilteros.php';">Water</li>
               <li class="header">Relative Use</li>
-              <li> <a href='?orderBy=elec&use=relative'>Electricity</a></li>
-              <li> <a href='?orderBy=elec&use=relative'>Water</a></li>
+              <li onClick="location.href='https://oberlindashboard.org/oberlin/time-series/buildingosnavigation/relvalelecfilteros.php';">Electricity</li>
+              <li onClick="location.href='https://oberlindashboard.org/oberlin/time-series/buildingosnavigation/relvalwaterfilteros.php';">Water</li>
               </ul>
           </ul>
-        </div>
       </div>
-    <div class="key">
+    </div>
+     <div class="key">
       <span class="notification-bubble">?</span>
       <img src='images/nav_images/electricity5.svg' height='40px' width='20px'>
       <div class="keydescription"> 
@@ -265,7 +187,7 @@ require '../../includes/class.TimeSeries.php';
         <h5>Compares current levels to typical levels of use at this time of day </h5></p>
       </div>
     </div>
-     <div class="key">
+    <div class="key">
       <span class="notification-bubble">?</span>
       <img src='images/nav_images/sun3.svg' height='40px' width='20px'>
       <div class="keydescription"> 
@@ -297,7 +219,7 @@ require '../../includes/class.TimeSeries.php';
         <h5>Compares current levels to typical levels of use at this time of day </h5>
       </div>
     </div>
-  </div>
+    </div>
   <div id="bg" style="display: none;height: 100%;width: 100%;position: absolute;top: 0;left: 50px;right: 0;bottom: 0;padding: 20px 20px 20px 20px"></div>
   <object id="object" type="image/svg+xml" data=""></object>
   <img src="images/close.svg" alt="" height="75px" width="75px" id="close-timeseries" style="display: none;cursor: pointer;position: fixed;top: 7px;right: 20px;">
@@ -313,6 +235,9 @@ require '../../includes/class.TimeSeries.php';
         var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
         this.addClass('animated ' + animationName).one(animationEnd, function() {
           $(this).removeClass('animated ' + animationName);
+          // if (animationName === 'fadeOut') {
+          //   $(this).addClass('hidden');
+          // }
         });
       }
     });
@@ -347,31 +272,13 @@ require '../../includes/class.TimeSeries.php';
       var buildingarray = $('.card-col').data('buildingconsumption');
       buildingarray.sort();
     });
-
-    $('.card').on('click', function() {
-      var side1 = $('#' + $(this).data('side1'));
-      var side2 = $('#' + $(this).data('side2'));
-      $('#close-meters').css('display', 'initial');
-      side1.addClass('hidden');
-      side2.removeClass('hidden');
-    });
-
-    $('.close-meters').on('click', function() {
-      var side1 = $('#' + $(this).data('side1'));
-      var side2 = $('#' + $(this).data('side2'));
-      //$('.side2').css('display', 'none');
-     // $('.side1').css('display', 'initial');
-      side2.addClass('hidden');
-      side1.removeClass('hidden');
-    });
-
+    
     $('.show-timeseries').on('click', function() {
       var meter_id = $(this).data('meterid');
       $('#object').attr('data', 'index.php?meter_id='+meter_id+'&meter_id2=' + meter_id).css('display', 'initial');
       $('#close-timeseries').css('display', 'initial');
       $('#bg').css('display', 'block');
     });
-    
     $('#close-timeseries').on('click', function() {
       $('#close-timeseries').css('display', 'none');
       $('#object').css('display', 'none');

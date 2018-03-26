@@ -2,7 +2,6 @@
 error_reporting(-1);
 ini_set('display_errors', 'On');
 require '../../includes/db.php';
-require '../../includes/class.TimeSeries.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +9,6 @@ require '../../includes/class.TimeSeries.php';
   <meta charset="UTF-8">
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
   <link rel="stylesheet" href="buildosnavstyle.css">
@@ -27,27 +25,22 @@ require '../../includes/class.TimeSeries.php';
         <!--EMPTY-->
       </div>
       <div class="col-sm-12 col-sm-pull-0">
-      <h1 style="font-size: 30px; margin-top: 0px; margin-bottom: 10px"> Select a building to find out more information </h1>
+      <h4 style="font-size: 30px; margin: 0 auto;"> Select a building to find out more information </h4>
         <div class="row">
         <?php
-        $sql = "SELECT DISTINCT buildings.name, buildings.id, buildings.db_link, buildings.area, buildings.building_type, buildings.custom_img, meters.current, meters.building_id, meters.for_orb, meters.timeseries_using, meters.bos_uuid, meters.scope, meters.units FROM buildings 
-          INNER JOIN meters ON buildings.id=meters.building_id
-          WHERE buildings.custom_img IS NOT NULL AND meters.scope = 'Whole building' AND meters.units = 'Kilowatts' AND buildings.area != 0 AND (meters.for_orb > 0 OR meters.timeseries_using > 0 
-        OR meters.bos_uuid IS NOT NULL) ORDER BY current DESC";
+             $sql = "SELECT id, name, db_link, building_type, area, custom_img FROM buildings WHERE org_id IN (SELECT org_id from users_orgs_map WHERE user_id = {$user_id}) AND custom_img IS NOT NULL AND id IN (SELECT building_id FROM meters WHERE for_orb > 0 OR timeseries_using > 0 OR bos_uuid IS NOT NULL) AND area != 0 ORDER BY name ASC";
         foreach($db->query($sql) as $building)  {
-          $stmt = $db->prepare('SELECT id, scope, current, name, for_orb, bos_uuid, units FROM meters WHERE building_id = ? ORDER BY name ASC');
+          $stmt = $db->prepare('SELECT id, scope, current, name, for_orb, bos_uuid, units, resource FROM meters WHERE building_id = ? ORDER BY name ASC');
           $stmt->execute(array($building['id']));
           $meters = $stmt->fetchAll();
         ?>
-        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 card-col" data-title="<?php echo $building['name'] ?>" data-buildingtype="<?php echo $building['building_type'] ?>" data-consumption="<?php echo $meters[0]['current']?>">
-          <a class="card-hilight" href="{$building['db_link']}" target="_top">
+        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 col-xxs-2 card-col" data-title="<?php echo $building['name'] ?>" data-buildingtype="<?php echo $building['building_type'] ?>" data-consumption="<?php echo $meters[0]['current']?>">
+            <a class="card-hilight" href="<?php echo $building['db_link'] ?>" target="_top">
             <div class="card">
               <div class="side1" id="side1<?php echo $building['id']; ?>">
                 <img src="<?php echo $building['custom_img'] ?>" alt="<?php echo $building['name'] ?>" align="middle">
                 <div class="card-text">
-                  <?php echo "<a href='{$building['db_link']}' target='_top'>";?>
                     <h1><?php echo $building['name'] ?></h1>
-                  </a>
                   <h2 class="text-muted"><?php echo $building['building_type'] ?></h2>
                   <div class="meter-num"><p> 
                   <?php 
@@ -63,49 +56,72 @@ require '../../includes/class.TimeSeries.php';
                       if ($meter['scope'] == "Whole building"){
                         $stmt = $db->prepare('SELECT relative_value FROM relative_values WHERE (meter_uuid = ?) LIMIT 1');
                         $stmt->execute(array($meter['bos_uuid']));
-                        if ($meter['units'] == "Kilowatts"){
-                          $elecrelval = $stmt->fetchColumn();
-                          if ($elecrelval <= 20){
-                            echo "<img src='../../images/nav_images/electricity1.svg' 
+                        if ($meter['resource'] == "Generation, Photovoltaic"){
+                          $pvrelval = $stmt->fetchColumn();
+                          if ($pvrelval <= 20){
+                            echo "<img src='../images/nav_images/sun1.svg' 
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
-                          else if ($elecrelval <= 40){
-                            echo "<img src='../../images/nav_images/electricity2.svg'
+                          else if ($pvrelval <= 40){
+                            echo "<img src='../images/nav_images/sun2.svg'
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
-                          else if ($elecrelval <= 60){
-                            echo "<img src='../../images/nav_images/electricity3.svg'  
+                          else if ($pvrelval <= 60){
+                            echo "<img src='../images/nav_images/sun3.svg'  
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
-                          else if ($elecrelval <= 80){
-                            echo "<img src='../../images/nav_images/electricity4.svg' 
+                          else if ($pvrelval <= 80){
+                            echo "<img src='../images/nav_images/sun4.svg' 
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
                           else{
-                            echo "<img src='../../images/nav_images/electricity5.svg'  
+                            echo "<img src='../images/nav_images/sun5.svg'  
+                            height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
+                          }
+                        }
+                        if ($meter['units'] == "Kilowatts"){
+                          $elecrelval = $stmt->fetchColumn();
+                          if ($elecrelval <= 20){
+                            echo "<img src='../images/nav_images/electricity1.svg' 
+                            height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
+                          }
+                          else if ($elecrelval <= 40){
+                            echo "<img src='../images/nav_images/electricity2.svg'
+                            height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
+                          }
+                          else if ($elecrelval <= 60){
+                            echo "<img src='../images/nav_images/electricity3.svg'  
+                            height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
+                          }
+                          else if ($elecrelval <= 80){
+                            echo "<img src='../images/nav_images/electricity4.svg' 
+                            height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
+                          }
+                          else{
+                            echo "<img src='../images/nav_images/electricity5.svg'  
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
                         }
                         else if ($meter['units'] == "Gallons / hour"){
                           $waterrelval = $stmt->fetchColumn();
                           if ($waterrelval <= 20){
-                            echo "<img src='../../images/nav_images/water1.svg'  
+                            echo "<img src='../images/nav_images/water1.svg'  
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }   
                           else if ($waterrelval <= 40){
-                            echo "<img src='../../images/nav_images/water2.svg'  
+                            echo "<img src='../images/nav_images/water2.svg'  
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
                           else if ($waterrelval <= 60){
-                            echo "<img src='../../images/nav_images/water3.svg'  
+                            echo "<img src='../images/nav_images/water3.svg'  
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
                           else if ($waterrelval <= 80){
-                            echo "<img src='../../images/nav_images/water4.svg'  
+                            echo "<img src='../images/nav_images/water4.svg'  
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
                           else{
-                            echo "<img src='../../images/nav_images/water5.svg' 
+                            echo "<img src='../images/nav_images/water5.svg' 
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
                         }
@@ -116,7 +132,7 @@ require '../../includes/class.TimeSeries.php';
               </div>
               </div>
             </div>
-          </a>
+            </a>
         </div>
         <?php } ?>
         </div>
@@ -131,7 +147,7 @@ require '../../includes/class.TimeSeries.php';
         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Building Type
         <span class="caret"></span></button>
         <ul class="dropdown-menu">
-          <li onClick="location.href='https://oberlindashboard.org/oberlin/time-series/buildingosnavigation.php';">All</li>
+          <li onClick="window.location.reload()">All</li>
            <?php 
             foreach($db->query("SELECT DISTINCT building_type FROM buildings WHERE org_id IN (SELECT org_id from users_orgs_map WHERE user_id = {$user_id}) AND custom_img IS NOT NULL AND id IN (SELECT building_id FROM meters WHERE gauges_using > 0 OR for_orb > 0 OR timeseries_using > 0 OR bos_uuid IS NOT NULL)
             ORDER BY building_type ASC") as $building) { ?>
@@ -140,13 +156,13 @@ require '../../includes/class.TimeSeries.php';
         </ul>
       </div>
       <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort By: Current Use Electricity
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort By: Alphabetical
         <span class="caret"></span></button>
         <ul class="dropdown-menu">
-              <li onClick="location.href='https://oberlindashboard.org/oberlin/time-series/buildingosnavigation.php';">Alphabetical</li>
-              <li class="header">Current Use</li>
-<!--               <li onClick="window.location.reload()">Electricity</li>
- -->              <li onClick="location.href='https://oberlindashboard.org/oberlin/time-series/buildingosnavigation/currentwaterfilteros.php';">Water</li>
+<!--               <li onClick="window.location.reload()">Alphabetical</li>
+ -->              <li class="header">Current Use</li>
+              <li onClick="location.href='https://oberlindashboard.org/oberlin/time-series/buildingosnavigation/currentelecfilteros.php';">Electricity</li>
+              <li onClick="location.href='https://oberlindashboard.org/oberlin/time-series/buildingosnavigation/currentwaterfilteros.php';">Water</li>
               <li class="header">Relative Use</li>
               <li onClick="location.href='https://oberlindashboard.org/oberlin/time-series/buildingosnavigation/relvalelecfilteros.php';">Electricity</li>
               <li onClick="location.href='https://oberlindashboard.org/oberlin/time-series/buildingosnavigation/relvalwaterfilteros.php';">Water</li>
@@ -156,15 +172,15 @@ require '../../includes/class.TimeSeries.php';
     </div>
      <div class="key">
       <span class="notification-bubble">?</span>
-      <img src='../../images/nav_images/electricity1.svg' height='40px' width='20px'>
+      <img src='../images/nav_images/electricity5.svg' height='40px' width='20px'>
       <div class="keydescription"> 
         <h2 style="font-size: 18px">Electricity Relative Use</h2>
         <p style="margin: 0 auto;">Low
-          <img src='../../images/nav_images/electricity1.svg' height='40px' width='20px'>
-          <img src='../../images/nav_images/electricity2.svg' height='40px' width='20px'>
-          <img src='../../images/nav_images/electricity3.svg' height='40px' width='20px'>
-          <img src='../../images/nav_images/electricity4.svg' height='40px' width='20px'>
-          <img src='../../images/nav_images/electricity5.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/electricity1.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/electricity2.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/electricity3.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/electricity4.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/electricity5.svg' height='40px' width='20px'>
         High
         <div class='line-separator'></div>
         <h5>Compares current levels to typical levels of use at this time of day </h5></p>
@@ -172,15 +188,31 @@ require '../../includes/class.TimeSeries.php';
     </div>
     <div class="key">
       <span class="notification-bubble">?</span>
-      <img src='../../images/nav_images/water1.svg' height='40px' width='20px'>
+      <img src='../images/nav_images/sun3.svg' height='40px' width='20px'>
+      <div class="keydescription"> 
+        <h2 style="font-size: 16px">PV Production Relative Use</h2>
+        <p style="margin: 0 auto;">Low
+          <img src='../images/nav_images/sun1.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/sun2.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/sun3.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/sun4.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/sun5.svg' height='40px' width='20px'>
+        High
+        <div class='line-separator'></div>
+        <h5>Compares current levels to typical levels of use at this time of day </h5></p>
+      </div>
+    </div>
+    <div class="key">
+      <span class="notification-bubble">?</span>
+      <img src='../images/nav_images/water1.svg' height='40px' width='20px'>
       <div class="keydescription"> 
         <h2 style="font-size: 18px">Water Relative Use</h2>
         <p style="margin: 0 auto;">Low
-          <img src='../../images/nav_images/water1.svg' height='40px' width='20px'>
-          <img src='../../images/nav_images/water2.svg' height='40px' width='20px'>
-          <img src='../../images/nav_images/water3.svg' height='40px' width='20px'>
-          <img src='../../images/nav_images/water4.svg' height='40px' width='20px'>
-          <img src='../../images/nav_images/water5.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/water1.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/water2.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/water3.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/water4.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/water5.svg' height='40px' width='20px'>
         High</p>
           <div class='line-separator'></div>
         <h5>Compares current levels to typical levels of use at this time of day </h5>
