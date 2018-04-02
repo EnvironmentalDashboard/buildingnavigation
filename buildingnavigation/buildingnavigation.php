@@ -85,7 +85,7 @@ require '../../includes/class.TimeSeries.php';
           $meters = $stmt->fetchAll();
         ?>
         <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 col-xxs-2 card-col" data-title="<?php echo $building['name'] ?>" data-buildingtype="<?php echo $building['building_type'] ?>" data-consumption="<?php echo $meters[0]['current']?>">
-            <h4 style="font-size: 30px; margin: 0 auto;"> Select a building to find out more information </h4>
+           <h4 style="font-size: 30px; margin: 0 auto;"> Select a building to find out more information </h4>
             <div class="card" data-side1="side1<?php echo $building['id'] ?>" data-side2="side2<?php echo $building['id'] ?>">
               <div class="side1" id="side1<?php echo $building['id']; ?>">
                 <img src="<?php echo $building['custom_img'] ?>" alt="<?php echo $building['name'] ?>" align="middle">
