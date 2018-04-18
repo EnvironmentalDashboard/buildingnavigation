@@ -1,7 +1,7 @@
 <?php
 error_reporting(-1);
 ini_set('display_errors', 'On');
-require '../../includes/db.php';
+// require '../../includes/db.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +25,7 @@ require '../../includes/db.php';
         <!--EMPTY-->
       </div>
       <div class="col-sm-12 col-sm-pull-0">
-      <h4 style="font-size: 30px; margin: 0 auto;"> Select a building to find out more information </h4>
+      <h4 style="font-size: 30px; margin: 0 auto;"> Select a building to find out more information. </h4>
         <div class="row">
         <?php
              $sql = "SELECT id, name, db_link, building_type, area, custom_img FROM buildings WHERE org_id IN (SELECT org_id from users_orgs_map WHERE user_id = {$user_id}) AND custom_img IS NOT NULL AND id IN (SELECT building_id FROM meters WHERE for_orb > 0 OR timeseries_using > 0 OR bos_uuid IS NOT NULL) AND area != 0 ORDER BY name ASC";
