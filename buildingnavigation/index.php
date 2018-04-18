@@ -13,7 +13,7 @@ require '../../includes/db.php';
   <link rel="stylesheet" href="css/bootstrap.grid.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-  <link rel="stylesheet" href="buildingnavigation/buildnavstyle.css">
+  <link rel="stylesheet" href="buildnavstyle.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <title>Building Navigation</title>
@@ -23,6 +23,7 @@ require '../../includes/db.php';
   <div class="container">
       <div class="col-sm-3"></div>
       <div class="col-sm-12 col-sm-pull-0">
+      <h1 style="font-size: 30px; margin-top: 0px; margin-bottom: 10px"> Select a building to find out more information </h1> 
       <div class="row-fluid">
     <?php
     $orderBy = NULL;
