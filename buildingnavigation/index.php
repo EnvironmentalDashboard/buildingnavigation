@@ -1,7 +1,7 @@
 <?php
 error_reporting(-1);
 ini_set('display_errors', 'On');
-// require '../../includes/db.php';
+require '../../includes/db.php';
 // require '../../includes/class.TimeSeries.php';
 ?>
 <!DOCTYPE html>
