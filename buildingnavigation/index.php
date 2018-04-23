@@ -2,7 +2,6 @@
 error_reporting(-1);
 ini_set('display_errors', 'On');
 require '../../includes/db.php';
-// require '../../includes/class.TimeSeries.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -112,23 +111,23 @@ require '../../includes/db.php';
                         if ($meter['resource'] == "Generation, Photovoltaic"){
                           $pvrelval = $stmt->fetchColumn();
                           if ($pvrelval <= 20){
-                            echo "<img src='../images/nav_../images/sun1.svg' 
+                            echo "<img src='../images/nav_images/images/sun1.svg' 
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
                           else if ($pvrelval <= 40){
-                            echo "<img src='../images/nav_../images/sun2.svg'
+                            echo "<img src='../images/nav_images/images/sun2.svg'
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
                           else if ($pvrelval <= 60){
-                            echo "<img src='../images/nav_../images/sun3.svg'  
+                            echo "<img src='../images/nav_images/images/sun3.svg'  
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
                           else if ($pvrelval <= 80){
-                            echo "<img src='../images/nav_../images/sun4.svg' 
+                            echo "<img src='../images/nav_images/images/sun4.svg' 
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
                           else{
-                            echo "<img src='../images/nav_../images/sun5.svg'  
+                            echo "<img src='../images/nav_images/images/sun5.svg'  
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
                         }
@@ -139,23 +138,23 @@ require '../../includes/db.php';
                             echo "<span class='warning-bubble'>~</span>";
                           }
                           if ($elecrelval <= 20){
-                            echo "<img src='../images/nav_../images/electricity1.svg' 
+                            echo "<img src='../images/nav_images/images/electricity1.svg' 
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
                           else if ($elecrelval <= 40){
-                            echo "<img src='../images/nav_../images/electricity2.svg'
+                            echo "<img src='../images/nav_images/images/electricity2.svg'
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
                           else if ($elecrelval <= 60){
-                            echo "<img src='../images/nav_../images/electricity3.svg'  
+                            echo "<img src='../images/nav_images/images/electricity3.svg'  
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
                           else if ($elecrelval <= 80){
-                            echo "<img src='../images/nav_../images/electricity4.svg' 
+                            echo "<img src='../images/nav_images/images/electricity4.svg' 
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
                           else{
-                            echo "<img src='../images/nav_../images/electricity5.svg'  
+                            echo "<img src='../images/nav_images/images/electricity5.svg'  
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
                         }
@@ -166,23 +165,23 @@ require '../../includes/db.php';
                             echo "<span class='warning-bubble'>~</span>";
                           }
                           if ($waterrelval <= 20){
-                            echo "<img src='../images/nav_../images/water1.svg'  
+                            echo "<img src='../images/nav_images/images/water1.svg'  
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }   
                           else if ($waterrelval <= 40){
-                            echo "<img src='../images/nav_../images/water2.svg'  
+                            echo "<img src='../images/nav_images/images/water2.svg'  
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
                           else if ($waterrelval <= 60){
-                            echo "<img src='../images/nav_../images/water3.svg'  
+                            echo "<img src='../images/nav_images/images/water3.svg'  
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
                           else if ($waterrelval <= 80){
-                            echo "<img src='../images/nav_../images/water4.svg'  
+                            echo "<img src='../images/nav_images/images/water4.svg'  
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
                           else{
-                            echo "<img src='../images/nav_../images/water5.svg' 
+                            echo "<img src='../images/nav_images/images/water5.svg' 
                             height='40px' width='20px' style='position: relative; display: inline; float: left;'>";
                           }
                         }
@@ -253,15 +252,15 @@ require '../../includes/db.php';
       </div>
     <div class="key">
       <span class="notification-bubble">?</span>
-      <img src='../images/nav_../images/electricity5.svg' height='40px' width='20px'>
+      <img src='../images/nav_images/images/electricity5.svg' height='40px' width='20px'>
       <div class="keydescription"> 
         <h2 style="font-size: 18px">Electricity Relative Use</h2>
         <p style="margin: 0 auto;">Low
-          <img src='../images/nav_../images/electricity1.svg' height='40px' width='20px'>
-          <img src='../images/nav_../images/electricity2.svg' height='40px' width='20px'>
-          <img src='../images/nav_../images/electricity3.svg' height='40px' width='20px'>
-          <img src='../images/nav_../images/electricity4.svg' height='40px' width='20px'>
-          <img src='../images/nav_../images/electricity5.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/images/electricity1.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/images/electricity2.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/images/electricity3.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/images/electricity4.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/images/electricity5.svg' height='40px' width='20px'>
         High
         <div class='line-separator'></div>
         <h5>Compares current levels to typical levels of use at this time of day </h5></p>
@@ -269,15 +268,15 @@ require '../../includes/db.php';
     </div>
      <div class="key">
       <span class="notification-bubble">?</span>
-      <img src='../images/nav_../images/sun3.svg' height='40px' width='20px'>
+      <img src='../images/nav_images/images/sun3.svg' height='40px' width='20px'>
       <div class="keydescription"> 
         <h2 style="font-size: 16px">PV Production Relative Use</h2>
         <p style="margin: 0 auto;">Low
-          <img src='../images/nav_../images/sun1.svg' height='40px' width='20px'>
-          <img src='../images/nav_../images/sun2.svg' height='40px' width='20px'>
-          <img src='../images/nav_../images/sun3.svg' height='40px' width='20px'>
-          <img src='../images/nav_../images/sun4.svg' height='40px' width='20px'>
-          <img src='../images/nav_../images/sun5.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/images/sun1.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/images/sun2.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/images/sun3.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/images/sun4.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/images/sun5.svg' height='40px' width='20px'>
         High
         <div class='line-separator'></div>
         <h5>Compares current levels to typical levels of use at this time of day </h5></p>
@@ -285,15 +284,15 @@ require '../../includes/db.php';
     </div>
     <div class="key">
       <span class="notification-bubble">?</span>
-      <img src='../images/nav_../images/water1.svg' height='40px' width='20px'>
+      <img src='../images/nav_images/images/water1.svg' height='40px' width='20px'>
       <div class="keydescription"> 
         <h2 style="font-size: 18px">Water Relative Use</h2>
         <p style="margin: 0 auto;">Low
-          <img src='../images/nav_../images/water1.svg' height='40px' width='20px'>
-          <img src='../images/nav_../images/water2.svg' height='40px' width='20px'>
-          <img src='../images/nav_../images/water3.svg' height='40px' width='20px'>
-          <img src='../images/nav_../images/water4.svg' height='40px' width='20px'>
-          <img src='../images/nav_../images/water5.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/images/water1.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/images/water2.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/images/water3.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/images/water4.svg' height='40px' width='20px'>
+          <img src='../images/nav_images/images/water5.svg' height='40px' width='20px'>
         High</p>
           <div class='line-separator'></div>
         <h5>Compares current levels to typical levels of use at this time of day </h5>
