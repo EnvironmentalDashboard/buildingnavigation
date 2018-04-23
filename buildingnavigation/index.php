@@ -21,8 +21,8 @@ require '../../includes/db.php';
   <!--WEBSITE CONTAINER-->
   <div class="container">
       <div class="col-sm-3"></div>
-      <div class="col-sm-12 col-sm-pull-0">
       <h1 style="font-size: 30px; margin-top: 0px; margin-bottom: 10px"> Select a building to find out more information </h1> 
+      <div class="col-sm-12 col-sm-pull-0">
       <div class="row-fluid">
     <?php
     $orderBy = NULL;
