@@ -84,7 +84,7 @@ require '../../includes/db.php';
           $stmt->execute(array($building['id']));
           $meters = $stmt->fetchAll();
         ?>
-        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 col-xxs-2 card-col" data-title="<?php echo $building['name'] ?>" data-buildingtype="<?php echo $building['building_type'] ?>" data-consumption="<?php echo $meters[0]['current']?>">
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 col-xxs-2 card-col" data-title="<?php echo $building['name'] ?>" data-buildingtype="<?php echo $building['building_type'] ?>" data-consumption="<?php echo $meters[0]['current']?>">
             <div class="card" data-side1="side1<?php echo $building['id'] ?>" data-side2="side2<?php echo $building['id'] ?>">
               <div class="side1" id="side1<?php echo $building['id']; ?>">
                 <img src="<?php echo $building['custom_img'] ?>" alt="<?php echo $building['name'] ?>" align="middle">
