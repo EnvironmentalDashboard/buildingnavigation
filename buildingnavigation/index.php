@@ -237,7 +237,7 @@ require '../../includes/db.php';
           <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort By: <?php echo $title?>
           <span class="caret"></span></button>
           <ul class="dropdown-menu">
-              <li onClick="location.href='https://oberlindashboard.org/oberlin/time-series/buildingnavigation.php';">Alphabetical</li>
+              <li onClick="location.href='https://oberlindashboard.org/oberlin/time-series/buildingnavigation';">Alphabetical</li>
               <li class="header">Current Use</li>
             <!-- href, put the query string in there-->
               <li> <a href='?orderBy=elec&use=current'>Electricity</a></li>
