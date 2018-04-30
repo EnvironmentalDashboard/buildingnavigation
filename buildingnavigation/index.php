@@ -359,8 +359,8 @@ require '../../includes/db.php';
     $('.close-meters').on('click', function() {
       var side1 = $('#' + $(this).data('side1'));
       var side2 = $('#' + $(this).data('side2'));
-      //$('.side2').css('display', 'none');
-     // $('.side1').css('display', 'initial');
+      $('.side2').css('display', 'none');
+      $('.side1').css('display', 'initial');
       side2.addClass('hidden');
       side1.removeClass('hidden');
     });
