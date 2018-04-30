@@ -360,9 +360,9 @@ require '../../includes/db.php';
       var side1 = $('#' + $(this).data('side1'));
       var side2 = $('#' + $(this).data('side2'));
       $('.side2').css('display', 'none');
-      $('.side1').css('display', 'initial');
+      //$('.side1').css('display', 'initial');
       side2.addClass('hidden');
-      side1.removeClass('hidden');
+      //side1.removeClass('hidden');
     });
 
     $('.show-timeseries').on('click', function() {
