@@ -22,7 +22,7 @@ require '../../includes/db.php';
   <div class="container">
       <div class="col-sm-3"></div>
       <div class="col-sm-12 col-sm-pull-0">
-      <h1 style="font-size: 30px; margin-top: 0px; margin-bottom: 10px"> Select a building to find out more information </h1> 
+      <h1 style="font-size: 30px; margin-top: 0px; margin-bottom: 10px"> Click on a building to view patterns of electricity and water use.</h1> 
       <div class="row-fluid">
     <?php
     $orderBy = NULL;
@@ -359,10 +359,10 @@ require '../../includes/db.php';
     $('.close-meters').on('click', function() {
       var side1 = $('#' + $(this).data('side1'));
       var side2 = $('#' + $(this).data('side2'));
-      $('.side2').css('display', 'none');
-      //$('.side1').css('display', 'initial');
+       //$('.side2').css('display', 'none');
+     // $('.side1').css('display', 'initial');
       side2.addClass('hidden');
-      //side1.removeClass('hidden');
+      side1.removeClass('hidden');
     });
 
     $('.show-timeseries').on('click', function() {
