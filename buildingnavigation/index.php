@@ -22,7 +22,7 @@ require '../../includes/db.php';
   <div class="container">
       <div class="col-sm-3"></div>
       <div class="col-sm-12 col-sm-pull-0">
-      <h1 style="font-size: 30px; margin-top: 0px; margin-bottom: 10px"> Click on a building to view patterns of electricity and water use.</h1> 
+      <h1 style="font-size: 30px; margin: 10px 10px 10px 10px;"> Click on a building to view patterns of electricity and water use</h1> 
       <div class="row-fluid">
     <?php
     $orderBy = NULL;
