@@ -184,6 +184,7 @@
     }
     .title{
       font-color: white;
+      display: inline;
     }
     .card {
       height: 330px;
@@ -246,7 +247,7 @@
       margin-bottom: 0px;
       font-size: 20px;
       color: #2C2C2C;
-      display: block;
+      display: inline;
     }
     h2{
       font-size: 14px;
