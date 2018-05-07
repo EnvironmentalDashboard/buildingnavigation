@@ -61,8 +61,8 @@
     .dropdown-menu .header{
       clear: both;
       color: #999;
-      display: block;
-      font-size: 11px;
+/*      display: block;
+*/      font-size: 11px;
       font-weight: bold;
       line-height: 18px;
       text-transform: uppercase;
