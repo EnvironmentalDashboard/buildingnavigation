@@ -33,16 +33,19 @@
     }
     .dropdown{
       display: inline-block;
+      float: right;
     }
     .dropdown-menu{
       min-width: 200px;
       padding: none;
+      float: right;
     }
     ul {
       list-style: none;
       position: relative;
     }
     .dropdown-menu li {
+      float: right;
       height: 30px;
       width: auto;
       background: #fff;
@@ -120,6 +123,7 @@
       padding: 0px 5px 0px 5px;
       text-align: center;
       cursor: pointer;
+      float: right;
     }
     .keydescription{
       height: 125px;
@@ -132,6 +136,7 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
       padding: 0px 5px 5px 5px;
       margin: 0 auto;
+      float: right;
       /*border: 2px solid #000;*/
     }
     .key:before{
@@ -160,6 +165,7 @@
       float: center;
       margin-left: auto;
       margin-right: auto;
+      overflow: scroll;
     }
     #object {
       width: 100%;
@@ -175,6 +181,7 @@
     .title{
       margin: 10px 10px 20px 10px;
       text-align: center;
+      font-family: 
     }
     .card {
       height: 330px;
@@ -276,77 +283,5 @@
       background: #95a5a6;
       background-color: #21A7DF;
     }
-    /*@media screen and (max-width: 1200px) {
-      .card {
-          height: 235px;
-      }
-      h1{
-        font-size: 18px;
-      }
-      h2{
-        font-size: 14px;
-      }
-      .meter-num{
-        font-size: 12px;
-      }
-    }
-    @media screen and (max-width: 1000px) {
-      h1{
-        font-size: 18px;
-      }
-      h2{
-        font-size: 14px;
-      }
-      .meter-num{
-        font-size: 12px;
-      }
-    }
-     @media screen and (max-width: 600px) {
-      .card {
-        height: 250px;
-      }
-      .container{
-        margin-top: 50px;
-      }
-      h1{
-        font-size: 16px;
-      }
-      h2{
-        font-size: 14px;
-      }
-      h4{
-        margin-top: 500px;
-      }
-      .relval {
-        position: absolute;
-        bottom: 60px;
-        left: 30px;
-        margin: 0 auto;
-      }
-      .meter-num{
-        font-size: 12px;
-      }
-    }
-    @media screen and (max-width: 480px) {
-      .card{
-        height: 210px;
-      }
-      h1{
-        font-size: 14px;
-      }
-      h2{
-        font-size: 12px;
-      }
-      h4{
-        margin-top: 500px;
-      }
-      .meter-num{
-        font-size: 10px;
-      }
-      .key, button{
-        margin-top: 10px;
-      }
-      .col-xxs-2{
-        width: 30%;
-      }*/
+    
     }
