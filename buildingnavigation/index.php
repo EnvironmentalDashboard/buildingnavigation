@@ -22,7 +22,7 @@ require '../../includes/db.php';
   <div class="container">
       <div class="col-sm-3"></div>
       <div class="col-sm-12 col-sm-pull-0">
-      <div class="title"><h1 style="font-size: 30px; margin: 10px 10px 10px 10px;"> Click on a building to view patterns of electricity and water use </h1> </div>
+      <div class="head-title"><h1 style="font-size: 30px; margin: 10px 10px 10px 10px;"> Click on a building to view patterns of electricity and water use </h1> </div>
       <div class="row-fluid">
     <?php
     $orderBy = NULL;
@@ -217,7 +217,7 @@ require '../../includes/db.php';
       </div>
   </div>
   <div class="navbar">
-      <h1>Oberlin College Building Navigation</h1>
+      <h1 class="title">Oberlin College Building Navigation</h1>
       <input type="text" id="search" placeholder="Search">
       <!--FILTERING BUTTONS-->
       <div class="btn-group">
