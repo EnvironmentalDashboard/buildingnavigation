@@ -217,7 +217,6 @@ require '../../includes/db.php';
       </div>
   </div>
   <div class="navbar">
-      <h1 class="title">Oberlin College Building Navigation</h1>
       <input type="text" id="search" placeholder="Search">
       <!--FILTERING BUTTONS-->
       <div class="btn-group">
