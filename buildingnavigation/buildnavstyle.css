@@ -33,8 +33,8 @@
       padding-left: 10px;
     }
     .dropdown{
-/*      display: inline-block;
-*/      float: right;
+    display: inline-block;
+      float: right;
     }
     .dropdown-menu{
       min-width: 200px;
@@ -46,7 +46,6 @@
       position: relative;
     }
     .dropdown-menu li {
-      float: right;
       height: 30px;
       width: auto;
       background: #fff;
@@ -61,8 +60,8 @@
     .dropdown-menu .header{
       clear: both;
       color: #999;
-/*      display: block;
-*/      font-size: 11px;
+      display: block;
+     font-size: 11px;
       font-weight: bold;
       line-height: 18px;
       text-transform: uppercase;
