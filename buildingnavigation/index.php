@@ -220,6 +220,7 @@ require '../../includes/db.php';
       <input type="text" id="search" placeholder="Search">
       <!--FILTERING BUTTONS-->
       <div class="btn-group">
+        <h1 class="title"> Environmental Dashboard Building Navigation</h1>
         <div class="dropdown">
             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Building Type:  <span id="buildingname"></span>
             <span class="caret"></span></button>
