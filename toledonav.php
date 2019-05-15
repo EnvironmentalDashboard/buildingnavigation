@@ -12,7 +12,8 @@ require '/var/www/repos/includes/db.php';
   <link rel="stylesheet" href="css/bootstrap.grid.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-  <link rel="stylesheet" href="buildingnavigation/buildnavstyle.css">
+  <link rel="stylesheet" href="buildingnavigation/buildnavstyle.cs
+s">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <title>Building Navigation</title>
@@ -25,9 +26,9 @@ require '/var/www/repos/includes/db.php';
       <h1 style="font-size: 30px; margin-top: 0px; margin-bottom: 10px"> Select a building to find out more information </h1>
       <div class="row">
         <?php
-        $sql = "SELECT id, name, area, building_type, custom_img FROM buildings WHERE org_id IN (SELECT org_id from users_orgs_map WHERE user_id = {$user_id})
+        $sql = "SELECT id, name, area, building_type, custom_img FROM buildings WHERE org_id = 1249
         AND id IN (SELECT building_id FROM meters WHERE for_orb > 0 OR timeseries_using > 0 
-        OR bos_uuid IS NOT NULL) LIMIT 6";
+        OR bos_uuid IS NOT NULL)";
 //AND custom_img IS NOT NULL 
 //AND area != 0 
         foreach($db->query($sql) as $building)  {
