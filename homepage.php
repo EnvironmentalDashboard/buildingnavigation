@@ -58,9 +58,10 @@ require '/var/www/repos/includes/db.php';
  	<div class="card">
 	 	<h1> How to make sense of this page </h1>
 	 	<p>
-	 		This dashboard contains real-time data on electricity and water consumption for each building at Oberlin College in Oberlin, Ohio. Scroll your mouse through the displays below and select different time periods and see how "Flash" the energy squirrel and "Wally" Walleye respond -- their behavior reflects how much resource is being consumed a given point in time relative to what is normally consumed at that time of day.	
+	 		This dashboard contains real-time data on electricity and water consumption for each building at Oberlin College in Oberlin, Ohio. Scroll your mouse through the displays below and select different time periods and see how "Flash" the energy squirrel and "Wally" Walleye respond -- their behavior reflects how much resource is being consumed a given point in time relative to what is normally consumed at that time of day.
+			To return to the building selection screen navigate to the appropriate browser tab, or close this tab and you should be redirected.
 	 	</p>
-	 	<button><a href="https://buildingos.com/reports/dashboards/282f6022666d11e7a61b525400d1fc46" target="_top"> Back to home page</a></button>
+	 	<!-- <button><a href="https://buildingos.com/reports/dashboards/282f6022666d11e7a61b525400d1fc46" target="_top"> Back to home page</a></button> -->
 	</div>
  </body>
 </html>
